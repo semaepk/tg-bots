@@ -32,7 +32,13 @@ export class MistralService {
       );
 
       console.log('Ответ:', response.data.choices['0'].message.content);
-      return JSON.stringify(response.data.choices['0'].message.content);
+      let content = response.data.choices[0].message.content;
+  
+      if (typeof content === 'object' && content !== null) {
+        content = JSON.stringify(content);
+      }
+      
+      return content;
     } catch (error) {
       if (error instanceof AxiosError) {
         // Теперь TypeScript знает, что error — это AxiosError
